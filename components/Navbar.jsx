@@ -50,6 +50,7 @@ const ButtonGroup = ({ setActive, router }) => {
       classStyles="mx-2 rounded-xl"
       handleClick={() => {
         setActive('');
+
         router.push('/create-nft');
       }}
     />
@@ -135,7 +136,7 @@ const Navbar = () => {
                   <MenuItems active={active} setActive={setActive} isMobile />
                 </div>
                 <div className="p-4 border-t dark:border-nft-black-1 border-nft-gray-1">
-                  <ButtonGroup setActive={setActive} router={router}/>
+                  <ButtonGroup setActive={setActive} router={router} />
                 </div>
             </div>
           )}
