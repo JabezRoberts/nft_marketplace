@@ -4,16 +4,23 @@ import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
-import { Button, Input } from '../components';
+import { NFTContext } from '../context/NFTContext';
+
+import { Button, Input, Loader } from '../components';
 import images from '../assets';
 
 const CreateNFT = () => {
   const [fileUrl, setFileUrl] = useState(null);
-  const { theme } = useTheme();
   const [formInput, setFormInput] = useState({ price: '', name: '', description: '' });
+  const { theme } = useTheme();
+  const { isLoadingNFT, uploadToIPFS, CreateNFT } = useContext(NFTContext);
+  const router = useRouter();
 
-  const onDrop = useCallback(() => {
+  const onDrop = useCallback(async (acceptedFile) => {
     // upload image to block chain ipfs
+    const url = await uploadToIPFS(acceptedFile[0]);
+
+    setFileUrl(url);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
@@ -28,6 +35,14 @@ const CreateNFT = () => {
     ${isDragAccept && ' border-file-accept'}
     ${isDragReject && ' border-file-reject'}`
   ), [isDragActive, isDragAccept, isDragReject]);
+
+  if (isLoadingNFT) {
+    return (
+      <div className="flexStart min-h-screen">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
@@ -47,7 +62,7 @@ const CreateNFT = () => {
                     height={100}
                     objectFit="contain"
                     alt="file upload"
-                    className={theme === 'light' && 'filter invert'}
+                    className={theme === 'light' ? 'filter invert' : ''}
                   />
                 </div>
                 <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">Drag and Drop File</p>
@@ -85,11 +100,11 @@ const CreateNFT = () => {
           handleClick={(e) => setFormInput({ ...formInput, price: e.target.value })}
         />
 
-        <div className=",t-7 w-full flex justify-end">
+        <div className="mt-7 w-full flex justify-end">
           <Button
             btnName="Create NFT"
             className="rounded-xl"
-            handleClick={() => {}}
+            handleClick={() => CreateNFT(formInput, fileUrl, router)}
           />
         </div>
       </div>
