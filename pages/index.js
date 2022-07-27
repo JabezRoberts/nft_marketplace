@@ -23,7 +23,7 @@ const Home = () => {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    fetchNFTs();
+    fetchNFTs()
       .then((items) => {
         setNfts(items);
         setNftsCopy(items);
@@ -44,7 +44,7 @@ const Home = () => {
         break;
         
       case 'Recently added':
-       setNFTs(sortedNfts.sort((a,b) => b.tokenId - a.tokenId));
+       setNfts(sortedNfts.sort((a,b) => b.tokenId - a.tokenId));
         break;
     
       default:
