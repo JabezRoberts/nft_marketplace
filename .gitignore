@@ -1,4 +1,5 @@
 .secret
+.eslintrc.js
 
 node_modules
 
