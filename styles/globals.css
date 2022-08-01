@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 .nft-gradient {
-   background: linear-gradient(101.12deg, #EB1484 27.35%, #C91CC3 99.99%, #C81CC5 100%, #C81CC5 100%);
+   background: linear-gradient(101.12deg, #14eb80 27.35%, #17ced8 99.99%, #1f099b 100%, #12b639 100%);
 }
 
 .white-bg {
@@ -15,6 +15,34 @@
 
 .nav-h {
     height: calc(100vh - 66px);
+}
+
+.dark-blue {
+    background: #03045e;
+}
+
+.light-blue1 {
+    background: #0096c7;
+}
+
+.blue1 {
+    background: #023e8a;
+}
+
+.pop-orange-main {
+    background: #fb8500;
+}
+
+.pop-orange-secondary {
+    background: #ffb703;
+}
+
+.dark-green {
+    background: #004b23;
+}
+
+.light-green {
+    background: #007200;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

@@ -8,7 +8,7 @@ const ListedNFTs = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchMyNFTsOrListedNFTs('fetchItemsListed');
+    fetchMyNFTsOrListedNFTs('fetchItemsListed')
       .then((items) => {
         setNfts(items);
         setIsLoading(false);
@@ -35,8 +35,8 @@ const ListedNFTs = () => {
     <div className="flex justify-center sm:px-4 p-12 min-h-screen">
       <div className="w-full minmd:w-4/5">
         <div className="mt-4">
-          <h2 className="font-poppins dark:text-white text-nft-black-1 text-32xl font-semibold mt-2 ml-4 sm:ml-2">NFTs Listed For Sale</h2>
-          <div className="mt-3 w-full flex flex-wrap justify-start justify-center">
+          <h2 className="font-poppins dark:text-white text-nft-black-1 text-2xl font-semibold mt-2 ml-4 sm:ml-2">NFTs Listed For Sale</h2>
+          <div className="mt-3 w-full flex flex-wrap justify-start sm:justify-center">
             {nfts.map((nft) => <NFTCard key={nft.tokenId} nft={nft} />)}
           </div>
         </div>

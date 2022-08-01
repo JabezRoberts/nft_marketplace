@@ -4,18 +4,18 @@ import { ethers } from 'ethers';
 import axios from 'axios';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
 
-import { MarketAddress, MarketAddressABI } from './constants';
+import { MarketAddress, MarketAddressAbi } from './constants';
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
-const fetchContract = (signerOrProvider) => new ethers.Contract(MarketAddress, MarketAddressABI, signerOrProvider);
-
 export const NFTContext = React.createContext();
+
+const fetchContract = (signerOrProvider) => new ethers.Contract(MarketAddress, MarketAddressAbi, signerOrProvider);
 
 export const NFTProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState('');
   const [isLoadingNFT, setIsLoadingNFT] = useState(false);
-  const nftCurrency = 'MATIC';
+  const nftCurrency = 'ETH';
 
   const checkIfWalletIsConnected = async () => {
     if (!window.ethereum) return alert('Please install MetaMask');
@@ -55,7 +55,7 @@ export const NFTProvider = ({ children }) => {
     }
   };
 
-  const CreateNFT = async (formInput, fileUrl, router) => {
+  const createNFT = async (formInput, fileUrl, router) => {
     const { name, description, price } = formInput;
 
     if (!name || !description || !price || !fileUrl) return;
@@ -86,8 +86,8 @@ export const NFTProvider = ({ children }) => {
     const listingPrice = await contract.getListingPrice();
 
     const transaction = !isReselling
-    ? await contract.createToken(url, price, { value: listingPrice.toString() })
-    : await contract.resellToken(id, price, { value: listingPrice.toString() });
+      ? await contract.createToken(url, price, { value: listingPrice.toString() })
+      : await contract.resellToken(id, price, { value: listingPrice.toString() });
 
     setIsLoadingNFT(true);
 
@@ -134,7 +134,7 @@ export const NFTProvider = ({ children }) => {
 
     const data = type === 'fetchItemsListed'
       ? await contract.fetchItemsListed()
-      : await contract.fetchMyNfts();
+      : await contract.fetchMyNFTs();
 
     const items = await Promise.all(data.map(async ({ tokenId, seller, owner, price: unformarttedPrice }) => {
       const tokenURI = await contract.tokenURI(tokenId);
@@ -176,7 +176,7 @@ export const NFTProvider = ({ children }) => {
   };
 
   return (
-    <NFTContext.Provider value={{ nftCurrency, connectWallet, currentAccount, uploadToIPFS, CreateNFT, fetchNFTs, fetchMyNFTsOrListedNFTs, buyNFT, createSale, isLoadingNFT }}>
+    <NFTContext.Provider value={{ nftCurrency, connectWallet, currentAccount, uploadToIPFS, createNFT, fetchNFTs, fetchMyNFTsOrListedNFTs, buyNFT, createSale, isLoadingNFT }}>
       {children}
     </NFTContext.Provider>
   );

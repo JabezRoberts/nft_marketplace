@@ -6,7 +6,7 @@ import { NFTContext } from '../context/NFTContext';
 
 import { Banner, CreatorCard, Loader, NFTCard, SearchBar } from '../components';
 import images from '../assets';
-import { makeId } from '../utils/makeId';
+//import { makeId } from '../utils/makeId';
 
 import { getCreators } from '../utils/getTopCreators';
 import { shortenAddress } from '../utils/shortenAddress';
@@ -36,41 +36,38 @@ const Home = () => {
 
     switch (activeSelect) {
       case 'Price (low to high)':
-        setNFTs(sortedNfts.sort((a,b) => a.price - b.price));   
+        setNfts(sortedNfts.sort((a, b) => a.price - b.price));
         break;
-        
+
       case 'Price (high to low)':
-        setNFTs(sortedNfts.sort((a,b) => b.price - a.price));  
+        setNfts(sortedNfts.sort((a, b) => b.price - a.price));
         break;
-        
+
       case 'Recently added':
-       setNfts(sortedNfts.sort((a,b) => b.tokenId - a.tokenId));
+        setNfts(sortedNfts.sort((a, b) => b.tokenId - a.tokenId));
         break;
-    
+
       default:
-        setNFTs(nfts);
+        setNfts(nfts);
         break;
     }
   }, [activeSelect]);
 
   const onHandleSearch = (value) => {
-    const filteredNFTs = nfts.filter(({ name }) => name.toLowerCase().includes(value.toLowerCase()));4
+    const filteredNFTs = nfts.filter(({ name }) => name.toLowerCase().includes(value.toLowerCase()));
 
-
-    if(filteredNFTs.length) {
-      setNFTs(filteredNFTs);
-
+    if (filteredNFTs.length) {
+      setNfts(filteredNFTs);
     } else {
-      setNFTs(nftsCopy);
+      setNfts(nftsCopy);
     }
   };
 
-
   const onClearSearch = () => {
-    if(nfts.length && nftsCopy.length) {
-      setNFTs(nftsCopy);
+    if (nfts.length && nftsCopy.length) {
+      setNfts(nftsCopy);
     }
-  }
+  };
 
   const handleScroll = (direction) => {
     const { current } = scrollRef;
@@ -112,7 +109,7 @@ const Home = () => {
         <Banner
           name={(<>Discover, collect, and sell<br /> extraordinary NFTs</>)}
           childStyles="md:text-4xl sm:text-2xl xs:text-xl text-left"
-          parentStyles="justify-start mb-6 h-72 sm:h-60 p-12 xs:p-4 xs:h-44 rounded-3xl"
+          parentStyles="justify-start mb-7 h-72 sm:h-60 p-12 xs:p-4 xs:h-44 rounded-3xl"
         />
 
         {!isLoading && !nfts.length ? (
@@ -120,23 +117,23 @@ const Home = () => {
         ) : isLoading ? <Loader /> : (
           <>
 
-        <div>
-          <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 xs:ml-0">Top Creators</h1>
-          <div
-            className="relative flex-1 max-w-full flex mt-3"
-            ref={parentRef}
-          >
-            <div className="flex flex-row w-max overflow-x-scroll no-scrollbar select-none" ref={scrollRef}>
-              {topCreators.map((creator, i) => (
-                <CreatorCard
-                  key={creator.seller}
-                  rank={i + 1}
-                  creatorImage={images[`creator${i + 1}`]}
-                  creatorName={shortenAddress(creator.seller)}
-                  creatorEths={creator.sum}
-                />
-              ))}
-              {/* {[6, 7, 8, 9, 10].map((i) => (
+            <div>
+              <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 xs:ml-0">Top Creators</h1>
+              <div
+                className="relative flex-1 max-w-full flex mt-3"
+                ref={parentRef}
+              >
+                <div className="flex flex-row w-max overflow-x-scroll no-scrollbar select-none" ref={scrollRef}>
+                  {topCreators.map((creator, i) => (
+                    <CreatorCard
+                      key={creator.seller}
+                      rank={i + 1}
+                      creatorImage={images[`creator${i + 1}`]}
+                      creatorName={shortenAddress(creator.seller)}
+                      creatorEths={creator.sum}
+                    />
+                  ))}
+                  {/* {[6, 7, 8, 9, 10].map((i) => (
                 <CreatorCard
                   key={`creator-${i}`}
                   rank={i}
@@ -145,35 +142,35 @@ const Home = () => {
                   creatorEths={10 - i * 0.5}
                 />
               ))} */}
-              {!hideButtons && (
-              <>
-                <div onClick={() => handleScroll('left')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer left-0">
-                  <Image src={images.left} layout="fill" objectFit="contain" alt="left_arrow" className={theme === 'light' ? 'filter invert' : ''} />
+                  {!hideButtons && (
+                  <>
+                    <div onClick={() => handleScroll('left')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer left-0">
+                      <Image src={images.left} layout="fill" objectFit="contain" alt="left_arrow" className={theme === 'light' ? 'filter invert' : ''} />
+                    </div>
+                    <div onClick={() => handleScroll('right')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer right-0">
+                      <Image src={images.right} layout="fill" objectFit="contain" alt="right_arrow" className={theme === 'light' ? 'filter invert' : ''} />
+                    </div>
+                  </>
+                  )}
                 </div>
-                <div onClick={() => handleScroll('right')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer right-0">
-                  <Image src={images.right} layout="fill" objectFit="contain" alt="right_arrow" className={theme === 'light' ? 'filter invert' : ''} />
+              </div>
+            </div>
+            <div className="mt-10">
+              <div className="flexBetween mx-4 xs:mx-0 minlg:mx-8 sm:flex-col sm:items-start">
+                <h1 className="flex-1 font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold sm:mb-4">Most Popular NFTs</h1>
+                <div className="flex-2 sm:w-full flex flex-row sm:flex-col">
+                  <SearchBar
+                    activeSelect={activeSelect}
+                    setActiveSelect={setActiveSelect}
+                    handleSearch={onHandleSearch}
+                    clearSearch={onClearSearch}
+                  />
                 </div>
-              </>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="mt-10">
-          <div className="flexBetween mx-4 xs:mx-0 minlg:mx-8 sm:flex-col sm:items-start">
-            <h1 className="flex-1 font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold sm:mb-4">Most Popular NFTs</h1>
-            <div className="flex-2 sm:w-full flex flex-row sm:flex-col">
-            <SearchBar 
-              activeSelect={activeSelect}
-              setActiveSelect={setActiveSelect}
-              handleSearch={onHandleSearch}
-              clearSearch={onClearSearch}
-            />
-            </div>
-          </div>
-        
-            <div className="mt-3 w-full flex flex-wrap justify-start md:justify-center">
-            {nfts.map((nft) => <NFTCard key={nft.tokenId} nft={nft} />)}
-              {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+              </div>
+
+              <div className="mt-3 w-full flex flex-wrap justify-start md:justify-center">
+                {nfts.map((nft) => <NFTCard key={nft.tokenId} nft={nft} />)}
+                {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
                 <NFTCard
                   key={`nft-${i}`}
                   nft={{
@@ -186,11 +183,10 @@ const Home = () => {
                   }}
                 />
               ))} */}
+              </div>
             </div>
-        </div>
-        </>
+          </>
         )}
-
 
       </div>
     </div>
