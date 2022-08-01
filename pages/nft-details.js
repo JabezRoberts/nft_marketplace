@@ -33,13 +33,14 @@ const PaymentBodyCmp = ({ nft, nftCurrency }) => (
       <div>
         <p className="font-poppins dark:text-white text-nft-black-1 font-normal text-sm minlg:text-xl">{nft.price} <span className="font-semibold">{nftCurrency}</span></p>
       </div>
+    </div>
 
-      <div className="flexBetween mt-10">
-        <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-base minlg:text-xl">Total</p>
-        <p className="font-poppins dark:text-white text-nft-black-1 text-base minlg:text-xl font-normal">{nft.price} <span className="font-semibold">{nftCurrency}</span></p>
-      </div>
+    <div className="flexBetween mt-10">
+      <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-base minlg:text-xl">Total</p>
+      <p className="font-poppins dark:text-white text-nft-black-1 text-base minlg:text-xl font-normal ml-1">{nft.price} <span className="font-semibold">{nftCurrency}</span></p>
     </div>
   </div>
+
 );
 
 const NFTDetails = () => {
@@ -118,7 +119,7 @@ const NFTDetails = () => {
                   btnName="List on Marketplace"
                   btnType="outline"
                   classStyles="mr-5 sm:mr-0 rounded-xl sm:mb-5"
-                  handleClick={() => (`/resell-nft?tokenId=${nft.tokenId}&tokenURI=${nft.tokenURI}`)}
+                  handleClick={() => router.push(`/resell-nft?tokenId=${nft.tokenId}&tokenURI=${nft.tokenURI}`)}
                 />
               ) : (
                 <Button
@@ -133,7 +134,7 @@ const NFTDetails = () => {
 
       {paymentModal && (
         <Modal
-          header="Check Out"
+          header="Checkout"
           body={<PaymentBodyCmp nft={nft} nftCurrency={nftCurrency} />}
           footer={(
             <div className="flex flex-row sm:flex-col">
