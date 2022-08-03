@@ -11,6 +11,7 @@ node_modules
 # production
 /build
 
+
 # local env files
 .env
 .env.local
@@ -40,3 +41,6 @@ artifacts
 
 # ignore the file literally named key.js
 key.js
+
+
+private/
