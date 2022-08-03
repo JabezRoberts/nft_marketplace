@@ -36,3 +36,7 @@ typechain
 #Hardhat files
 cache
 artifacts
+
+
+# ignore the file literally named key.js
+key.js
