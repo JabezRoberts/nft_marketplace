@@ -97,7 +97,8 @@ export const NFTProvider = ({ children }) => {
   const fetchNFTs = async () => {
     setIsLoadingNFT(false);
 
-    const provider = new ethers.providers.JsonRpcProvider();
+    const provider = new ethers.providers.AlchemyProvider('goerli', 'fHy1C1uzVUOERhvd4OMPwAygYTzbBwi7');
+    
     const contract = fetchContract(provider);
 
     const data = await contract.fetchMarketItems();
