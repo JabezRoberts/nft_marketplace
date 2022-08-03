@@ -4,9 +4,10 @@ import { ethers } from 'ethers';
 import axios from 'axios';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
 
-import '../'
-
 import { MarketAddress, MarketAddressAbi } from './constants';
+
+const fs = require('fs');
+const privatekey = fs.readFileSync('.secretApi').toString().trim();
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
@@ -98,8 +99,12 @@ export const NFTProvider = ({ children }) => {
 
   const fetchNFTs = async () => {
     setIsLoadingNFT(false);
+    console.log(`${process.env.Alchemy_API_Key}`);
+    console.log('api key');
 
-    const provider = new ethers.providers.AlchemyProvider('goerli', `${process.env.Alchemy_API_Key}`);
+  
+
+    const provider = new ethers.providers.AlchemyProvider('goerli', privatekey);
     
     const contract = fetchContract(provider);
 

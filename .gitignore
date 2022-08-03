@@ -1,5 +1,6 @@
 .secret
 .eslintrc.js
+.secretApi
 
 node_modules
 
